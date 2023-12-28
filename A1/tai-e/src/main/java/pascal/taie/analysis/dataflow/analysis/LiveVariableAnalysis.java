@@ -71,14 +71,16 @@ public class LiveVariableAnalysis extends
         SetFact<Var> oldIn = in.copy();
         SetFact<Var> outCopy = out.copy();
 
-        for (RValue r : stmt.getUses()) {
-            if (r instanceof Var) outCopy.add((Var) r);
-        }
-
         if (stmt.getDef().isPresent()) {
             LValue defB = stmt.getDef().get();
             if (defB instanceof Var) outCopy.remove((Var) defB);
         }
+
+        for (RValue r : stmt.getUses()) {
+            if (r instanceof Var) outCopy.add((Var) r);
+        }
+
+
 
         in.union(outCopy);
         return !oldIn.equals(in);
