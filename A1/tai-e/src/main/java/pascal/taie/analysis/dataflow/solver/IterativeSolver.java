@@ -55,8 +55,6 @@ class IterativeSolver<Node, Fact> extends Solver<Node, Fact> {
                     analysis.meetInto(result.getInFact(succ), outB);
                 }
 
-                result.setOutFact(node, outB);
-
                 Fact inB = result.getInFact(node);
                 changed = changed | analysis.transferNode(node, inB, outB);
             }
